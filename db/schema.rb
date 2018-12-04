@@ -10,21 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_181433) do
+ActiveRecord::Schema.define(version: 2018_12_04_070902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applicant_nationalities", force: :cascade do |t|
-    t.bigint "applicants_info_id"
-    t.bigint "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["applicants_info_id"], name: "index_applicant_nationalities_on_applicants_info_id"
-    t.index ["country_id"], name: "index_applicant_nationalities_on_country_id"
-  end
-
-  create_table "applicants_info", force: :cascade do |t|
+  create_table "applicants", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.date "birth"
@@ -36,10 +27,19 @@ ActiveRecord::Schema.define(version: 2018_11_21_181433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["city_id"], name: "index_applicants_info_on_city_id"
-    t.index ["marital_status_id"], name: "index_applicants_info_on_marital_status_id"
-    t.index ["user_id"], name: "index_applicants_info_on_user_id"
-    t.index ["visa_status_id"], name: "index_applicants_info_on_visa_status_id"
+    t.index ["city_id"], name: "index_applicants_on_city_id"
+    t.index ["marital_status_id"], name: "index_applicants_on_marital_status_id"
+    t.index ["user_id"], name: "index_applicants_on_user_id"
+    t.index ["visa_status_id"], name: "index_applicants_on_visa_status_id"
+  end
+
+  create_table "applicants_nationalities", force: :cascade do |t|
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "applicant_id"
+    t.index ["applicant_id"], name: "index_applicants_nationalities_on_applicant_id"
+    t.index ["country_id"], name: "index_applicants_nationalities_on_country_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -80,6 +80,5 @@ ActiveRecord::Schema.define(version: 2018_11_21_181433) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "applicant_nationalities", "applicants_info"
-  add_foreign_key "applicant_nationalities", "countries"
+  add_foreign_key "applicants_nationalities", "countries"
 end
