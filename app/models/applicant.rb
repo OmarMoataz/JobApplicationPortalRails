@@ -6,5 +6,5 @@ class Applicant < ApplicationRecord
   belongs_to :city
 
   has_many :applicants_nationalities
-  has_many :nationalities, through: :applicants_nationalities, foreign_key: 'country_id', source: :applicant
+  has_many :nationalities, through: :applicants_nationalities, source: :country
 end
