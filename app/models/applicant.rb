@@ -1,6 +1,8 @@
 class Applicant < ApplicationRecord
   #validations
-  
+  validates :applicant_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates_inclusion_of :number_of_dependents, in: 0..20
+
 
 
   belongs_to :user
