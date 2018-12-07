@@ -1,4 +1,7 @@
 class Applicant < ApplicationRecord
+  #validations
+  
+
 
   belongs_to :user
   belongs_to :visa_status
